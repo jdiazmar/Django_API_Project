@@ -14,11 +14,9 @@ def products_list(request):
         products = Products.objects.all()
         serializer = ProductsSerializer(products, many=True)
         return Response(serializer.data)
-
-
     elif request.method == 'POST':
         serializer = ProductsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True) 
         serializer.save()
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_201_CREATED)
 
